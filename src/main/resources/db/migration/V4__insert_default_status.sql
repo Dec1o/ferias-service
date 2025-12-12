@@ -1,0 +1,4 @@
+INSERT INTO status (nome) VALUES
+('PENDENTE'),
+('APROVADO'),
+('REPROVADO');
