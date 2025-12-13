@@ -52,34 +52,16 @@ Define a situação da solicitação de férias, contendo valores como:
 
 ## Diagrama de Relacionamentos
 
-```
-┌─────────────────┐
-│   servidores    │
-├─────────────────┤
-│ id (PK)         │
-│ nome            │
-│ email           │
-│ senha           │
-│ pagamento       │
-│ created_at      │
-└─────────────────┘
-        │
-        │ 1:N
-        │
-        ▼
-┌─────────────────┐         ┌─────────────────┐
-│     ferias      │   N:1   │     status      │
-├─────────────────┤◄────────├─────────────────┤
-│ id (PK)         │         │ id (PK)         │
-│ servidor_id (FK)│         │ nome            │
-│ status_id (FK)  │─────────►└─────────────────┘
-│ data_inicio     │
-│ data_fim        │
-│ dias            │
-│ pag_ferias      │
-│ observacao      │
-└─────────────────┘
-```
+servidores (1) ────────< (N) ferias (N) >──────── (1) status
+     │                         │                        │
+     │                         │                        │
+  id (PK)                  servidor_id (FK)          id (PK)
+  nome                     status_id (FK)            nome
+  email                    data_inicio
+  senha                    data_fim
+  pagamento                dias
+  created_at               pag_ferias
+                           observacao
 
 ---
 
