@@ -1,3 +1,102 @@
+# Protótipo de baixa fidelidade
+<img width="4149" height="1740" alt="excalidraw_01" src="https://github.com/user-attachments/assets/aa84b846-bffb-4715-ac0b-0764605f62c4" />
+
+
+# Estrutura do Banco de Dados - Ferias Service
+<img width="608" height="508" alt="diagram-export-13-12-2025-08_25_51" src="https://github.com/user-attachments/assets/32bf4e1a-d69e-401e-941b-040fbf80b109" />
+
+## Visão Geral
+
+O sistema de controle de férias é composto por três tabelas principais: **servidores**, **ferias** e **status**, sendo suficiente para representar o servidor, seus períodos de férias, o status da solicitação e as informações básicas de pagamento.
+
+---
+
+## Tabelas
+
+### `servidores`
+Armazena os dados do servidor, contendo:
+- **Identificador único** (ID)
+- **Nome** do servidor
+- **Email** (único no sistema)
+- **Senha** (hash BCrypt)
+- **Valor de pagamento** (salário base)
+- **Data de criação** do registro
+
+**Relacionamento**: Um servidor pode possuir várias solicitações de férias (1:N).
+
+---
+
+### `ferias`
+Registra os períodos de férias solicitados pelos servidores, incluindo:
+- **Datas de início e fim** do período
+- **Quantidade de dias** de férias
+- **Observações** sobre a solicitação
+- **Valor do pagamento das férias** (salário acrescido de um terço constitucional)
+- **Status da solicitação** (referência à tabela status)
+
+**Relacionamento**: 
+- Cada registro de férias está associado a um **único servidor** (N:1)
+- Cada registro de férias está associado a um **único status** (N:1)
+
+---
+
+### `status`
+Define a situação da solicitação de férias, contendo valores como:
+- **PENDENTE** - Aguardando aprovação
+- **APROVADO** - Solicitação aprovada
+- **REPROVADO** - Solicitação negada
+
+**Relacionamento**: Um mesmo status pode estar associado a várias solicitações de férias (1:N).
+
+---
+
+## Diagrama de Relacionamentos
+
+```
+┌─────────────────┐
+│   servidores    │
+├─────────────────┤
+│ id (PK)         │
+│ nome            │
+│ email           │
+│ senha           │
+│ pagamento       │
+│ created_at      │
+└─────────────────┘
+        │
+        │ 1:N
+        │
+        ▼
+┌─────────────────┐         ┌─────────────────┐
+│     ferias      │   N:1   │     status      │
+├─────────────────┤◄────────├─────────────────┤
+│ id (PK)         │         │ id (PK)         │
+│ servidor_id (FK)│         │ nome            │
+│ status_id (FK)  │─────────►└─────────────────┘
+│ data_inicio     │
+│ data_fim        │
+│ dias            │
+│ pag_ferias      │
+│ observacao      │
+└─────────────────┘
+```
+
+---
+
+## Migrações
+
+As migrações são gerenciadas pelo **Flyway** e estão localizadas em:
+```
+src/main/resources/db/migration/
+```
+
+### Ordem de Execução
+
+1. **V1__create_servidores.sql** - Cria tabela de servidores
+2. **V2__create_status.sql** - Cria tabela de status
+3. **V3__create_ferias.sql** - Cria tabela de férias com FKs
+4. **V4__insert_default_status.sql** - Insere status iniciais (PENDENTE, APROVADO, REPROVADO)
+
 # Documentação - Ferias Service API
 
 ## 📋 Visão Geral
