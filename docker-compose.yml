@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: ferias-postgres
+    environment:
+      POSTGRES_DB: estoque_db
+      POSTGRES_USER: ferias_user
+      POSTGRES_PASSWORD: ferias_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ferias-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ferias_user -d estoque_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ferias-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/estoque_db
+      SPRING_DATASOURCE_USERNAME: ferias_user
+      SPRING_DATASOURCE_PASSWORD: ferias_pass
+      JWT_SECRET: QzVxNnJtT0l2eVZac3BJSnAwb3h4M2ZsS3J0RjlFQ0tWeXd2SGFsdA==
+      JWT_EXPIRATION: 3600000
+    ports:
+      - "8080:8080"
+    networks:
+      - ferias-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+
+networks:
+  ferias-network:
+    driver: bridge
