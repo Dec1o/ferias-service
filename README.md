@@ -1,3 +1,11 @@
+## 🧑‍💼 História de Usuário — Problema e Contexto
+
+**João** é servidor público e todos os anos tira férias. Porém, atualmente ele não consegue visualizar de forma organizada quais períodos já tirou, quando irá tirar novamente, nem os pagamentos relacionados às férias. Ele costuma acessar vários sistemas internos diferentes, enviar e-mails para o RH e às vezes precisa pedir comprovantes de pagamentos manualmente.
+
+Ele gostaria de ter uma forma simples de consultar seus períodos de férias, com datas e status de aprovação, e visualizar dados básicos dos pagamentos associados a esses períodos.
+
+O sistema que foi desenvolvido é um **protótipo mínimo**, voltado exclusivamente a esse objetivo principal.
+
 # Estrutura do Banco de Dados
 <img width="608" height="508" alt="diagram-export-13-12-2025-08_25_51" src="https://github.com/user-attachments/assets/32bf4e1a-d69e-401e-941b-040fbf80b109" />
 
