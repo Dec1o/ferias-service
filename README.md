@@ -1,89 +1,16 @@
 # Protótipo de baixa fidelidade
 <img width="4149" height="1740" alt="excalidraw_01" src="https://github.com/user-attachments/assets/aa84b846-bffb-4715-ac0b-0764605f62c4" />
 
-
 # Estrutura do Banco de Dados
 <img width="608" height="508" alt="diagram-export-13-12-2025-08_25_51" src="https://github.com/user-attachments/assets/32bf4e1a-d69e-401e-941b-040fbf80b109" />
-
-## Visão Geral
-
-O sistema de controle de férias é composto por três tabelas principais: **servidores**, **ferias** e **status**, sendo suficiente para representar o servidor, seus períodos de férias, o status da solicitação e as informações básicas de pagamento.
-
----
-
-## Tabelas
-
-### `servidores`
-Armazena os dados do servidor, contendo:
-- **Identificador único** (ID)
-- **Nome** do servidor
-- **Email** (único no sistema)
-- **Senha** (hash BCrypt)
-- **Valor de pagamento** (salário base)
-- **Data de criação** do registro
-
-**Relacionamento**: Um servidor pode possuir várias solicitações de férias (1:N).
-
----
-
-### `ferias`
-Registra os períodos de férias solicitados pelos servidores, incluindo:
-- **Datas de início e fim** do período
-- **Quantidade de dias** de férias
-- **Observações** sobre a solicitação
-- **Valor do pagamento das férias** (salário acrescido de um terço constitucional)
-- **Status da solicitação** (referência à tabela status)
-
-**Relacionamento**: 
-- Cada registro de férias está associado a um **único servidor** (N:1)
-- Cada registro de férias está associado a um **único status** (N:1)
-
----
-
-### `status`
-Define a situação da solicitação de férias, contendo valores como:
-- **PENDENTE** - Aguardando aprovação
-- **APROVADO** - Solicitação aprovada
-- **REPROVADO** - Solicitação negada
-
-**Relacionamento**: Um mesmo status pode estar associado a várias solicitações de férias (1:N).
-
----
-
-## Diagrama de Relacionamentos
-
-servidores (1) ────────< (N) ferias (N) >──────── (1) status
-     │                         │                        │
-     │                         │                        │
-  id (PK)                  servidor_id (FK)          id (PK)
-  nome                     status_id (FK)            nome
-  email                    data_inicio
-  senha                    data_fim
-  pagamento                dias
-  created_at               pag_ferias
-                           observacao
-
----
-
-## Migrações
-
-As migrações são gerenciadas pelo **Flyway** e estão localizadas em:
-```
-src/main/resources/db/migration/
-```
-
-### Ordem de Execução
-
-1. **V1__create_servidores.sql** - Cria tabela de servidores
-2. **V2__create_status.sql** - Cria tabela de status
-3. **V3__create_ferias.sql** - Cria tabela de férias com FKs
-4. **V4__insert_default_status.sql** - Insere status iniciais (PENDENTE, APROVADO, REPROVADO)
 
 # Documentação - Ferias Service API
 
 ## 📋 Visão Geral
 
 Sistema de gerenciamento de férias para servidores públicos, com controle de solicitações, aprovações e cálculo automático de pagamentos.
+
+---
 
 ## 🚀 Tecnologias
 
@@ -93,11 +20,15 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 - **Flyway** (migração de dados)
 - **Docker** (containerização)
 
+---
+
 ## 📦 Pré-requisitos
 
 - Java 17+
 - Docker & Docker Compose
 - Maven 3.9+
+
+---
 
 ## ⚙️ Configuração e Execução
 
@@ -174,6 +105,8 @@ docker-compose -f docker-compose-app.yml down
 docker-compose -f docker-compose-postgres.yml down
 ```
 
+---
+
 ## 🔐 Autenticação
 
 Todas as rotas (exceto `/auth/**`) requerem token JWT no header:
@@ -181,6 +114,8 @@ Todas as rotas (exceto `/auth/**`) requerem token JWT no header:
 ```
 Authorization: Bearer {token}
 ```
+
+---
 
 ## 📡 Endpoints Principais
 
@@ -218,6 +153,8 @@ Authorization: Bearer {token}
 |--------|----------|-----------|
 | GET | `/status` | Listar status (PENDENTE, APROVADO, REPROVADO) |
 
+---
+
 ## 🔒 Segurança
 
 ### Autenticação JWT
@@ -240,6 +177,8 @@ Authorization: Bearer {token}
 ### Isolamento de Containers
 - Aplicação roda como usuário não-root (`spring:spring`)
 - Imagem otimizada com Alpine Linux (superfície de ataque reduzida)
+
+---
 
 ## 🏗️ Arquitetura
 
@@ -287,6 +226,8 @@ Database (PostgreSQL)
 - Transações gerenciadas por anotações
 - Dialect específico para PostgreSQL
 
+---
+
 ## 🎨 Padrões de Projeto
 
 ### Dependency Injection
@@ -322,6 +263,8 @@ Database (PostgreSQL)
 - **Lombok**: `@Data`, `@Builder` para construtores fluentes
 - **JPA**: Entidades com getters/setters automáticos
 
+---
+
 ## 💡 Regras de Negócio
 
 - **Cálculo de Pagamento**: Salário + 1/3 do salário
@@ -332,6 +275,57 @@ Database (PostgreSQL)
   - Apenas solicitações PENDENTES podem ser alteradas
   - Não é possível deletar férias APROVADAS
 
+---
+
+## 🗄️ Estrutura do Banco de Dados
+
+### Visão Geral
+
+O sistema utiliza três tabelas principais: **servidores**, **ferias** e **status**, sendo suficiente para representar o servidor, seus períodos de férias, o status da solicitação e as informações básicas de pagamento.
+
+### Tabelas
+
+**`servidores`** - Cadastro dos servidores
+- Identificador único, nome, email, senha (hash BCrypt)
+- Salário base e data de criação
+- Um servidor pode ter várias solicitações de férias
+
+**`ferias`** - Períodos de férias solicitados
+- Datas de início e fim, quantidade de dias
+- Valor do pagamento (salário + 1/3 constitucional)
+- Observações e status da solicitação
+- Cada registro vinculado a um servidor e um status
+
+**`status`** - Situação das solicitações
+- Valores possíveis: PENDENTE, APROVADO, REPROVADO
+- Um status pode estar em várias solicitações
+
+### Diagrama de Relacionamentos
+
+```
+servidores (1) ────────< (N) ferias (N) >──────── (1) status
+     │                         │                        │
+     │                         │                        │
+  id (PK)                  servidor_id (FK)          id (PK)
+  nome                     status_id (FK)            nome
+  email                    data_inicio
+  senha                    data_fim
+  pagamento                dias
+  created_at               pag_ferias
+                           observacao
+```
+
+### Migrações
+
+Gerenciadas pelo Flyway em `src/main/resources/db/migration/`:
+
+1. **V1__create_servidores.sql** - Cria tabela de servidores
+2. **V2__create_status.sql** - Cria tabela de status
+3. **V3__create_ferias.sql** - Cria tabela de férias com FKs
+4. **V4__insert_default_status.sql** - Insere status iniciais (PENDENTE, APROVADO, REPROVADO)
+
+---
+
 ## 📚 Documentação API
 
 Acesse o Swagger após subir a aplicação:
@@ -339,20 +333,15 @@ Acesse o Swagger após subir a aplicação:
 http://localhost:8080/swagger-ui.html
 ```
 
+---
+
 ## 🏥 Health Check
 
 ```
 http://localhost:8080/actuator/health
 ```
 
-## 🗄️ Estrutura do Banco
-
-**Tabelas:**
-- `servidores` - Dados dos servidores
-- `ferias` - Solicitações de férias
-- `status` - Status das solicitações (PENDENTE, APROVADO, REPROVADO)
-
-Migrações gerenciadas pelo Flyway em `src/main/resources/db/migration/`
+---
 
 ## 🔧 Collection Postman
 
