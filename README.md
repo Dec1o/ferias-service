@@ -18,32 +18,79 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 - Docker & Docker Compose
 - Maven 3.9+
 
-## ⚙️ Configuração
+## ⚙️ Configuração e Execução
 
-### Variáveis de Ambiente
+### Executar Localmente
 
-```env
-SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/nome_db
-SPRING_DATASOURCE_USERNAME=user
-SPRING_DATASOURCE_PASSWORD=senha
-JWT_SECRET=QzVxNnJtT0l2eVZac3BJSnAwb3h4M2ZsS3J0RjlFQ0tWeXd2SGFsdA==
-JWT_EXPIRATION=3600000
+#### 1. Configurar o Banco de Dados PostgreSQL
+
+**Opção A - Usando Docker (recomendado)**
+```bash
+docker-compose -f docker-compose-postgres.yml up -d
 ```
+
+**Opção B - PostgreSQL instalado localmente**
+```sql
+CREATE DATABASE nome_db;
+CREATE USER user WITH PASSWORD 'senha';
+GRANT ALL PRIVILEGES ON DATABASE nome_db TO user;
+```
+
+#### 2. Configurar Variáveis de Ambiente
+
+Edite o arquivo `src/main/resources/application.properties` com suas credenciais:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/nome_db
+spring.datasource.username=user
+spring.datasource.password=senha
+jwt.secret=QzVxNnJtT0l2eVZac3BJSnAwb3h4M2ZsS3J0RjlFQ0tWeXd2SGFsdA==
+jwt.expiration=3600000
+```
+
+#### 3. Executar a Aplicação
+
+```bash
+# Linux/Mac
+./mvnw spring-boot:run
+
+# Windows
+mvnw.cmd spring-boot:run
+```
+
+#### 4. Verificar se está funcionando
+
+Acesse: `http://localhost:8080/actuator/health`
+
+Resposta esperada: `{"status":"UP"}`
+
+---
 
 ### Executar com Docker
 
+#### 1. Subir o Banco de Dados
 ```bash
-# 1. Subir banco de dados
 docker-compose -f docker-compose-postgres.yml up -d
+```
 
-# 2. Subir aplicação
+#### 2. Subir a Aplicação
+```bash
 docker-compose -f docker-compose-app.yml up -d
 ```
 
-### Executar localmente
-
+#### 3. Verificar logs
 ```bash
-./mvnw spring-boot:run
+# Logs do banco
+docker logs ferias-postgres
+
+# Logs da aplicação
+docker logs ferias-api
+```
+
+#### 4. Parar os serviços
+```bash
+docker-compose -f docker-compose-app.yml down
+docker-compose -f docker-compose-postgres.yml down
 ```
 
 ## 🔐 Autenticação
