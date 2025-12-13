@@ -13,13 +13,37 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 ---
 
 ## 🚀 Tecnologias
+# Stack Tecnológico - Ferias Service API
 
-- **Java 17** + **Spring Boot 4.0.0**
-- **PostgreSQL** (banco de dados)
-- **JWT** (autenticação)
-- **Flyway** (migração de dados)
-- **Docker** (containerização)
+| Categoria | Tecnologia | Versão | Descrição |
+|-----------|------------|--------|-----------|
+| **Linguagem** | Java | 17 | Linguagem de programação |
+| **Framework** | Spring Boot | 4.0.0 | Framework principal |
+| **Build** | Maven | 3.9+ | Gerenciador de dependências |
+| **Banco de Dados** | PostgreSQL | 17 | Banco relacional |
+| **Migração** | Flyway | (Spring Boot) | Versionamento de schema |
+| **ORM** | Hibernate/JPA | (Spring Boot) | Mapeamento objeto-relacional |
+| **Segurança** | Spring Security | (Spring Boot) | Autenticação e autorização |
+| **JWT** | JJWT | 0.11.5 | Tokens de autenticação |
+| **Validação** | Bean Validation | (Spring Boot) | Validação de dados |
+| **Documentação** | SpringDoc OpenAPI | 2.5.0 | Swagger UI / OpenAPI 3.0 |
+| **Monitoramento** | Spring Actuator | (Spring Boot) | Health checks e métricas |
+| **Desenvolvimento** | Spring DevTools | (Spring Boot) | Hot reload |
+| **Produtividade** | Lombok | (Spring Boot) | Redução de boilerplate |
+| **Containerização** | Docker | Latest | Containers da aplicação |
+| **Orquestração** | Docker Compose | Latest | Gerenciamento de containers |
+| **Imagem Base** | Alpine Linux | Latest | Imagem JRE otimizada |
 
+---
+
+## Dependências Principais
+
+**Persistência**: Spring Data JPA, Flyway, PostgreSQL Driver  
+**Segurança**: Spring Security, JJWT (API, Impl, Jackson)  
+**Web**: Spring Web MVC, Bean Validation  
+**Documentação**: SpringDoc OpenAPI, Spring Actuator  
+**Desenvolvimento**: Spring DevTools, Lombok  
+**Testes**: Spring Test (JPA, Flyway, Security, Validation, WebMVC)
 ---
 
 ## 📦 Pré-requisitos
