@@ -36,16 +36,6 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 
 ---
 
-## Dependências Principais
-
-**Persistência**: Spring Data JPA, Flyway, PostgreSQL Driver  
-**Segurança**: Spring Security, JJWT (API, Impl, Jackson)  
-**Web**: Spring Web MVC, Bean Validation  
-**Documentação**: SpringDoc OpenAPI, Spring Actuator  
-**Desenvolvimento**: Spring DevTools, Lombok  
-**Testes**: Spring Test (JPA, Flyway, Security, Validation, WebMVC)
----
-
 ## 📦 Pré-requisitos
 
 - Java 17+
