@@ -60,7 +60,7 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 
 **Opção A - Usando Docker (recomendado)**
 ```bash
-docker-compose -f docker-compose-postgres.yml up -d
+docker-compose up -d
 ```
 
 **Opção B - PostgreSQL instalado localmente**
@@ -100,16 +100,11 @@ Resposta esperada: `{"status":"UP"}`
 
 ---
 
-### Executar com Docker
+### Executar com er
 
-#### 1. Subir o Banco de Dados
+#### 1. Subir o Banco de Dados + Aplicação
 ```bash
-docker-compose -f docker-compose-postgres.yml up -d
-```
-
-#### 2. Subir a Aplicação
-```bash
-docker-compose -f docker-compose-app.yml up -d
+er-compose up -d
 ```
 
 #### 3. Verificar logs
@@ -123,8 +118,7 @@ docker logs ferias-api
 
 #### 4. Parar os serviços
 ```bash
-docker-compose -f docker-compose-app.yml down
-docker-compose -f docker-compose-postgres.yml down
+docker-compose -f docker-compose.yml down
 ```
 
 ---
