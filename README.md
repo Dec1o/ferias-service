@@ -58,12 +58,6 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 
 #### 1. Configurar o Banco de Dados PostgreSQL
 
-**Opção A - Usando Docker (recomendado)**
-```bash
-docker-compose up -d
-```
-
-**Opção B - PostgreSQL instalado localmente**
 ```sql
 CREATE DATABASE nome_db;
 CREATE USER user WITH PASSWORD 'senha';
@@ -100,11 +94,11 @@ Resposta esperada: `{"status":"UP"}`
 
 ---
 
-### Executar com er
+### Executar com Docker
 
 #### 1. Subir o Banco de Dados + Aplicação
 ```bash
-er-compose up -d
+docker-compose up -d
 ```
 
 #### 3. Verificar logs
