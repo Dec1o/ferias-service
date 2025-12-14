@@ -350,3 +350,38 @@ http://localhost:8080/swagger-ui.html
 ## 🔧 Collection Postman
 
 Importe o arquivo `Ferias Service API.postman_collection.json` no Postman para testar os endpoints.
+
+# Possíveis melhorias futuras - Sistema de Férias:
+
+## 1. Substituir coluna `observacao` por `data_pagamento`
+- **Atual:** Campo texto fixo "Pagamento efetuado 48h antes do início das férias"
+- **Novo:** Campo `data_pagamento DATE` calculado automaticamente (data_inicio - 2 dias)
+- **Impacto:** Informação precisa e computável para relatórios financeiros
+
+## 2. Exception Handler Global
+- **Criar:** `@RestControllerAdvice` para capturar todas as exceções
+- **Benefícios:** 
+  - Respostas HTTP padronizadas (404, 400, 500)
+  - Ocultar stack traces em produção
+  - JSON de erro consistente: `{message, status, timestamp}`
+- **Classes:** `GlobalExceptionHandler`, `ErrorResponse`
+
+## 3. Auditoria e Logs
+- **Auditoria JPA:** 
+  - Adicionar `@CreatedDate`, `@LastModifiedDate`, `@CreatedBy`, `@LastModifiedBy`
+  - Anotar entidades com `@EntityListeners(AuditingEntityListener.class)`
+- **Logs Estruturados:**
+  - Usar `@Slf4j` (Lombok) em services
+  - Logar ações importantes: criação, aprovação, rejeição de férias
+  - Formato: `log.info("Férias criadas - id: {}, servidor: {}", id, nome)`
+
+## 4. Sistema de Permissionamento
+- **Roles:** `ROLE_SERVIDOR`, `ROLE_GESTOR`, `ROLE_ADMIN`
+- **Regras:**
+  - Servidor: criar/visualizar apenas suas férias
+  - Gestor: aprovar/reprovar férias
+  - Admin: acesso total
+- **Implementação:**
+  - Adicionar campo `role` na tabela `servidores`
+  - Usar `@PreAuthorize("hasRole('GESTOR')")` nos métodos
+  - Configurar em `SecurityConfig`
