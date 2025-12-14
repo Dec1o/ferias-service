@@ -38,7 +38,6 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 | **JWT** | JJWT | 0.11.5 | Tokens de autenticação |
 | **Validação** | Bean Validation | (Spring Boot) | Validação de dados |
 | **Documentação** | SpringDoc OpenAPI | 2.5.0 | Swagger UI / OpenAPI 3.0 |
-| **Monitoramento** | Spring Actuator | (Spring Boot) | Health checks e métricas |
 | **Desenvolvimento** | Spring DevTools | (Spring Boot) | Hot reload |
 | **Produtividade** | Lombok | (Spring Boot) | Redução de boilerplate |
 | **Containerização** | Docker | Latest | Containers da aplicação |
@@ -88,14 +87,6 @@ jwt.expiration=3600000
 # Windows
 mvnw.cmd spring-boot:run
 ```
-
-#### 4. Verificar se está funcionando
-
-Acesse: `http://localhost:8080/actuator/health`
-
-Resposta esperada: `{"status":"UP"}`
-
----
 
 ### Executar com Docker
 
@@ -345,16 +336,6 @@ Acesse o Swagger após subir a aplicação:
 ```
 http://localhost:8080/swagger-ui.html
 ```
-
----
-
-## 🏥 Health Check
-
-```
-http://localhost:8080/actuator/health
-```
-
----
 
 ## 🔧 Collection Postman
 
