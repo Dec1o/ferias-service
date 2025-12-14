@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "8e17239e-d103-4744-a3e3-eb55de8bfffa",
+		"name": "Ferias Service API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27702406"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"decio@gmail.com\",\n  \"senha\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"Décio\",\n  \"email\": \"decio@gmail.com\",\n  \"senha\": \"123456\",\n  \"pagamento\": 3000\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SERVIDORES",
+			"item": [
+				{
+					"name": "Listar Servidores",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJpYXQiOjE3NjU1Nzk1MDMsImV4cCI6MTc2NTU4MzEwM30.5FwO0vwi5hM6Z4tZzyMd0qPqeJAYsA-xvdQ4PRXtzPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/servidores",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servidores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Servidor por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZWdtYWlsLmNvbSIsImlhdCI6MTc2NTU2NTM0NSwiZXhwIjoxNzY1NTY4OTQ1fQ.EsTvCl75MJ30PK8E8_rXv_-5Z4J9ts-mOe6x5QTVUWw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/servidores/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servidores",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Servidor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZWNpb0BnbWFpbC5jb20iLCJpYXQiOjE3NjU1Njk3ODIsImV4cCI6MTc2NTU3MzM4Mn0.97AWTnE97rRuqWAukAl0UuxwfN-MbgovQFeKB6ynJTM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"decio\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/servidores/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servidores",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar Servidor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJpYXQiOjE3NjU1Nzk1MDMsImV4cCI6MTc2NTU4MzEwM30.5FwO0vwi5hM6Z4tZzyMd0qPqeJAYsA-xvdQ4PRXtzPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/servidores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"servidores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FERIAS",
+			"item": [
+				{
+					"name": "Criar Férias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZWNpb0BnbWFpbC5jb20iLCJpYXQiOjE3NjU1NzI2MjMsImV4cCI6MTc2NTU3NjIyM30.BqO_DVG8mBmlJe6Pjcnak2zxTUi8tVuQDmj35cSlqBs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"servidorId\": 1,\n  \"dataInicio\": \"2026-01-10\",\n  \"dataFim\": \"2026-01-20\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/ferias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ferias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Férias",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZUBnbWFpbC5jb20iLCJpYXQiOjE3NjU1Nzk1MDMsImV4cCI6MTc2NTU4MzEwM30.5FwO0vwi5hM6Z4tZzyMd0qPqeJAYsA-xvdQ4PRXtzPM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/ferias",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ferias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Férias por ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZWdtYWlsLmNvbSIsImlhdCI6MTc2NTU2NjI3MSwiZXhwIjoxNzY1NTY5ODcxfQ.ih0xoWcn0YDbGR-KaLRpyAckhgUJhs4rgytkHVXBYzA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/ferias/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ferias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Férias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZWdtYWlsLmNvbSIsImlhdCI6MTc2NTU2NjI3MSwiZXhwIjoxNzY1NTY5ODcxfQ.ih0xoWcn0YDbGR-KaLRpyAckhgUJhs4rgytkHVXBYzA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"dataInicio\": \"2025-12-22\",\n  \"dataFim\": \"2025-12-28\",\n  \"statusId\": 2\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/ferias/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ferias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Excluir Férias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJkZWNpb0BnbWFpbC5jb20iLCJpYXQiOjE3NjU1NzI2MjMsImV4cCI6MTc2NTU3NjIyM30.BqO_DVG8mBmlJe6Pjcnak2zxTUi8tVuQDmj35cSlqBs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/ferias/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ferias",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "STATUS",
+			"item": [
+				{
+					"name": "Listar Status",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZWdtYWlsLmNvbSIsImlhdCI6MTc2NTU2NjM4OSwiZXhwIjoxNzY1NTY5OTg5fQ.k_hozkHvFWKgPfX3a0SUJVrkiTIqAUanBIldrbmlEEI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/status",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
