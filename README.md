@@ -1,3 +1,27 @@
+# Documentação - Ferias Service API
+
+## 📑 Menu
+
+- [🧑‍💼 História de Usuário](#-história-de-usuário--problema-e-contexto)
+- [📋 Visão Geral](#-visão-geral)
+- [🚀 Stack Tecnológico](#-stack-tecnológico)
+- [📦 Pré-requisitos](#-pré-requisitos)
+- [⚙️ Configuração e Execução](#️-configuração-e-execução)
+  - [Executar Localmente](#executar-localmente)
+  - [Executar com Docker](#executar-com-docker)
+- [🔐 Autenticação](#-autenticação)
+- [📡 Endpoints Principais](#-endpoints-principais)
+- [🔒 Segurança](#-segurança)
+- [🏗️ Arquitetura](#️-arquitetura)
+- [🎨 Padrões de Projeto](#-padrões-de-projeto)
+- [💡 Regras de Negócio](#-regras-de-negócio)
+- [🗄️ Estrutura do Banco de Dados](#️-estrutura-do-banco-de-dados)
+- [📚 Documentação API](#-documentação-api)
+- [🔧 Collection Postman](#-collection-postman)
+- [🔮 Possíveis Melhorias Futuras](#-possíveis-melhorias-futuras)
+
+---
+
 ## 🧑‍💼 História de Usuário — Problema e Contexto
 
 **João** é servidor público e todos os anos tira férias. Porém, atualmente ele não consegue visualizar de forma organizada quais períodos já tirou, quando irá tirar novamente, nem os pagamentos relacionados às férias. Ele costuma acessar vários sistemas internos diferentes, enviar e-mails para o RH e às vezes precisa pedir comprovantes de pagamentos manualmente.
@@ -6,16 +30,16 @@ Ele gostaria de ter uma forma simples de consultar seus períodos de férias, co
 
 O sistema que foi desenvolvido é um **protótipo mínimo**, voltado exclusivamente a esse objetivo principal.
 
-# Estrutura do Banco de Dados
+### Estrutura do Banco de Dados
 <img width="608" height="508" alt="diagram-export-13-12-2025-08_25_51" src="https://github.com/user-attachments/assets/32bf4e1a-d69e-401e-941b-040fbf80b109" />
 
-# Protótipo de baixa fidelidade
+### Protótipo de baixa fidelidade
 <img width="4149" height="1740" alt="excalidraw_01" src="https://github.com/user-attachments/assets/aa84b846-bffb-4715-ac0b-0764605f62c4" />
 
-# Tutorial por vídeo:
+### Tutorial por vídeo
 [Link para o vídeo de apoio](https://www.youtube.com/watch?v=3zPzYzjfyeQ)
 
-# Documentação - Ferias Service API
+---
 
 ## 📋 Visão Geral
 
@@ -23,8 +47,7 @@ Sistema de gerenciamento de férias para servidores públicos, com controle de s
 
 ---
 
-## 🚀 Tecnologias
-# Stack Tecnológico - Ferias Service API
+## 🚀 Stack Tecnológico
 
 | Categoria | Tecnologia | Versão | Descrição |
 |-----------|------------|--------|-----------|
@@ -95,7 +118,7 @@ mvnw.cmd spring-boot:run
 docker-compose up -d
 ```
 
-#### 3. Verificar logs
+#### 2. Verificar logs
 ```bash
 # Logs do banco
 docker logs ferias-postgres
@@ -104,7 +127,7 @@ docker logs ferias-postgres
 docker logs ferias-api
 ```
 
-#### 4. Parar os serviços
+#### 3. Parar os serviços
 ```bash
 docker-compose -f docker-compose.yml down
 ```
@@ -347,18 +370,22 @@ Acesse o Swagger após subir a aplicação:
 http://localhost:8080/swagger-ui.html
 ```
 
+---
+
 ## 🔧 Collection Postman
 
 Importe o arquivo `Ferias Service API.postman_collection.json` no Postman para testar os endpoints.
 
-# Possíveis melhorias futuras - Sistema de Férias:
+---
 
-## 1. Substituir coluna `observacao` por `data_pagamento`
+## 🔮 Possíveis Melhorias Futuras
+
+### 1. Substituir coluna `observacao` por `data_pagamento`
 - **Atual:** Campo texto fixo "Pagamento efetuado 48h antes do início das férias"
 - **Novo:** Campo `data_pagamento DATE` calculado automaticamente (data_inicio - 2 dias)
 - **Impacto:** Informação precisa e computável para relatórios financeiros
 
-## 2. Exception Handler Global
+### 2. Exception Handler Global
 - **Criar:** `@RestControllerAdvice` para capturar todas as exceções
 - **Benefícios:** 
   - Respostas HTTP padronizadas (404, 400, 500)
@@ -366,7 +393,7 @@ Importe o arquivo `Ferias Service API.postman_collection.json` no Postman para t
   - JSON de erro consistente: `{message, status, timestamp}`
 - **Classes:** `GlobalExceptionHandler`, `ErrorResponse`
 
-## 3. Auditoria e Logs
+### 3. Auditoria e Logs
 - **Auditoria JPA:** 
   - Adicionar `@CreatedDate`, `@LastModifiedDate`, `@CreatedBy`, `@LastModifiedBy`
   - Anotar entidades com `@EntityListeners(AuditingEntityListener.class)`
@@ -375,7 +402,7 @@ Importe o arquivo `Ferias Service API.postman_collection.json` no Postman para t
   - Logar ações importantes: criação, aprovação, rejeição de férias
   - Formato: `log.info("Férias criadas - id: {}, servidor: {}", id, nome)`
 
-## 4. Sistema de Permissionamento
+### 4. Sistema de Permissionamento
 - **Roles:** `ROLE_SERVIDOR`, `ROLE_GESTOR`, `ROLE_ADMIN`
 - **Regras:**
   - Servidor: criar/visualizar apenas suas férias
