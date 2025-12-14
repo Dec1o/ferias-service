@@ -13,7 +13,7 @@ O sistema que foi desenvolvido é um **protótipo mínimo**, voltado exclusivame
 <img width="4149" height="1740" alt="excalidraw_01" src="https://github.com/user-attachments/assets/aa84b846-bffb-4715-ac0b-0764605f62c4" />
 
 # Tutorial por vídeo:
-[Link para o arquivo no Google Drive](https://drive.google.com/file/d/14JCnKL1I1U2-tszRgFKyuNKE2sFQqu6y/view?usp=sharing)
+[Link para o vídeo de apoio](https://www.youtube.com/watch?v=3zPzYzjfyeQ)
 
 # Documentação - Ferias Service API
 
