@@ -189,11 +189,21 @@ Authorization: Bearer {token}
 ### Estrutura em Camadas
 
 ```
+Client (HTTP Request)
+    ↓
+Security Filter (JWT)
+    ↓
 Controller (API REST)
+    ↓
+DTOs (Request/Response)
     ↓
 Service (Lógica de Negócio)
     ↓
 Repository (Acesso a Dados)
+    ↓
+JPA/Hibernate (ORM)
+    ↓
+Flyway (Migrations)
     ↓
 Database (PostgreSQL)
 ```
